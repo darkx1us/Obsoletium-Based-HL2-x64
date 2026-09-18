@@ -46,7 +46,7 @@ public:
 		return 0;
 	}
 
-	virtual IVP_DOUBLE get_damping()
+	IVP_DOUBLE get_damping() override
 	{
 		return data.physics.dampening;
 	}
@@ -72,7 +72,7 @@ public:
 	intp RemapIVPMaterialIndex( intp ivpMaterialIndex ) const;
 
 	// IVP_Material_Manager
-	virtual IVP_Material *get_material_by_index(IVP_Real_Object *pObject, const IVP_U_Point *world_position, int index);
+    IVP_Material* get_material_by_index( const IVP_U_Point* world_position, int index ) override;
 
     IVP_DOUBLE get_friction_factor(IVP_Contact_Situation *situation) override	// returns values >0, value of 1.0f means object stands on a 45 degres hill
 	{
@@ -617,7 +617,7 @@ intp CIVPMaterialManager::RemapIVPMaterialIndex( intp ivpMaterialIndex ) const
 
 // remap the incoming (from IVP) index and get the appropriate material
 // note that ivp will only supply indices between 1 and 127
-IVP_Material *CIVPMaterialManager::get_material_by_index( [[maybe_unused]] IVP_Real_Object *pObject, [[maybe_unused]] const IVP_U_Point *world_position, int index)
+IVP_Material *CIVPMaterialManager::get_material_by_index( [[maybe_unused]] const IVP_U_Point *world_position, int index)
 {
 	IVP_Material *tmp = m_props->GetIVPMaterial( RemapIVPMaterialIndex(index) );
 	Assert(tmp);
