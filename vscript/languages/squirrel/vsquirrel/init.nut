@@ -164,7 +164,7 @@ function VSquirrel_OnCreateScope( name, outer )
 	if ( !(name in outer) )
 	{
 		result = outer[name] <- { __vname=name, __vrefs = 1 };
-		delegate outer : result;
+		result.setdelegate( outer );
 	}
 	else
 	{
@@ -185,7 +185,7 @@ function VSquirrel_OnReleaseScope( scope )
 	{
 		delete scope.parent[scope.__vname];
 		scope.__vname = null;
-		delegate null : scope;
+		scope.setdelegate( null );
 	}
 }
 
@@ -493,7 +493,7 @@ class LateBinder
 
 	function EstablishDelegation( parentTable, childTable )
 	{
-		delegate parentTable : childTable;
+		childTable.setdelegate( parentTable );
 		
 		foreach( key, value in childTable )
 		{
@@ -507,7 +507,7 @@ class LateBinder
 	
 	function RemoveDelegation( childTable )
 	{
-		delegate null : childTable;
+		childTable.setdelegate( null );
 		
 		foreach( key, value in childTable )
 		{

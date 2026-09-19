@@ -1216,7 +1216,8 @@ private:
 		DWarning( "vscript:squirrel",
 			0,
 			"%s(%d,%d): compile error: %s.\n",
-			source, desc, line, column );
+			source, static_cast<int>(line),
+			static_cast<int>(column), desc );
 	}
 
 	static SQInteger RuntimeErrorHandler(HSQUIRRELVM m_hVM)
